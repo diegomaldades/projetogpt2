@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulado ENEM</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #121212;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    .year-button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 15px;
+      font-size: 18px;
+      background-color: #ffffff;
+      color: #000000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .year-button:hover {
+      background-color: #dddddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Simulado ENEM</h1>
+    <button class="year-button" onclick="abrirSimulado('enem2024')">ENEM 2024</button>
+    <button class="year-button" onclick="abrirSimulado('enem2023')">ENEM 2023</button>
+    <button class="year-button" onclick="abrirSimulado('enem2022')">ENEM 2022</button>
+    <button class="year-button" onclick="abrirSimulado('enem2021')">ENEM 2021</button>
+    <button class="year-button" onclick="abrirSimulado('enem2020')">ENEM 2020</button>
+  </div>
+
+  <script>
+    function abrirSimulado(pasta) {
+      // Redireciona para a base passando o ano como parâmetro na URL
+      window.location.href = `base/index.html?ano=${pasta}`;
+    }
+  </script>
+</body>
+</html>

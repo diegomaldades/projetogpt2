@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulado ENEM</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    img {
+      max-width: 90%;
+      margin-bottom: 10px;
+    }
+    .question {
+      margin-bottom: 30px;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    select {
+      font-size: 16px;
+      padding: 5px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simulado ENEM</h1>
+  <div id="questoes"></div>
+  <button onclick="verificar()">Verificar Respostas</button>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const ano = urlParams.get("ano");
+
+    if (!ano) {
+      alert("Ano não especificado!");
+      window.location.href = "../index.html";
+    }
+
+    const gabaritoPath = `../${ano}/gabarito.json`;
+    const imagemPath = `../${ano}/imagens/`;
+    let gabarito = {};
+
+    fetch(gabaritoPath)
+      .then(res => {
+        if (!res.ok) throw new Error("Gabarito não encontrado");
+        return res.json();
+      })
+      .then(data => {
+        gabarito = data;
+        carregarQuestoes();
+      })
+      .catch(err => {
+        alert("Erro ao carregar gabarito: " + err.message);
+      });
+
+    function carregarQuestoes() {
+      const container = document.getElementById("questoes");
+      for (let i = 1; i <= Object.keys(gabarito).length; i++) {
+        const numero = i.toString().padStart(3, '0');
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `
+          <img src="${imagemPath}${numero}.png" alt="Questão ${numero}">
+          <br>
+          <label>Resposta:
+            <select id="q${numero}">
+              <option value="">--</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+            </select>
+          </label>
+        `;
+        container.appendChild(div);
+      }
+    }
+
+    function verificar() {
+      let acertos = 0;
+      let total = Object.keys(gabarito).length;
+
+      for (let i = 1; i <= total; i++) {
+        const numero = i.toString().padStart(3, '0');
+        const resposta = document.getElementById(`q${numero}`).value;
+        if (resposta === gabarito[numero]) {
+          acertos++;
+        }
+      }
+
+      alert(`Você acertou ${acertos} de ${total} questões.`);
+    }
+  </script>
+</body>
+</html>
