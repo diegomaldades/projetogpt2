@@ -44,7 +44,7 @@ function carregarQuestoesCompostas(totalQuestoes) {
 
     function tentarCarregarImagem() {
       const sufixo = sufixoIndex === 0 ? "" : String.fromCharCode(96 + sufixoIndex); // '', 'a', 'b', ...
-      const imgPath = `${currentFolder}/q${i}${sufixo}.jpeg`;
+      const imgPath = `${currentFolder}/imagens/q${i}${sufixo}.jpeg`;
       const img = document.createElement("img");
       img.src = imgPath;
       img.alt = `Questão ${i}${sufixo}`;
